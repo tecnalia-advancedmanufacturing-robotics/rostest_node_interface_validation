@@ -23,7 +23,7 @@ If the input or the output should be empty, place None.
 __author__ = "Anthony Remazeilles"
 __email__ = "anthony.remazeilles@tecnalia.com"
 __copyright__ = "Copyright (C) 2020 Tecnalia Research and Innovation"
-__licence__ = "Apache 2.0"
+__license__ = "Apache 2.0"
 
 import sys
 import time
@@ -92,7 +92,7 @@ class ServiceTest(unittest.TestCase):
     def test_advertise_service(self):
         """Test services are advertised"""
         t_start = self.t_start
-        s_name_set = set([ item['name'] for item in self.calls])
+        s_name_set = set([item['name'] for item in self.calls])
         t_timeout_max = 10.0
 
         while not rospy.is_shutdown():
@@ -117,7 +117,7 @@ class ServiceTest(unittest.TestCase):
     def test_service_call(self):
 
         for item in self.calls:
-            rospy.loginfo("Testing service {} with input parameters {}".format(
+            rospy.logwarn("Testing service {} with input parameters {}".format(
                 item['name'],
                 item['input']))
             self._test_service(item['name'], item['input'], item['output'])
@@ -133,11 +133,16 @@ class ServiceTest(unittest.TestCase):
             srv_proxy = rospy.ServiceProxy(srv_name, srv_class)
         except KeyError as err:
             msg_err = "Service proxy could not be created"
+            msg_err += "Error: [%s]\n" % (str(err))
             self.fail(msg_err)
 
         try:
             if srv_input:
-                srv_resp = srv_proxy(**srv_input)
+                srv_type = rosservice.get_service_type(srv_name)
+                rospy.loginfo(f"Service type: {srv_type}")
+
+                req = message_converter.convert_dictionary_to_ros_message(srv_type, srv_input, kind='request')
+                srv_resp = srv_proxy(req)
             else:
                 srv_resp = srv_proxy()
 
