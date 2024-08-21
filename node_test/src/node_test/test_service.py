@@ -117,7 +117,7 @@ class ServiceTest(unittest.TestCase):
     def test_service_call(self):
 
         for item in self.calls:
-            rospy.logwarn("Testing service {} with input parameters {}".format(
+            rospy.loginfo("Testing service {} with input parameters {}".format(
                 item['name'],
                 item['input']))
             self._test_service(item['name'], item['input'], item['output'])
