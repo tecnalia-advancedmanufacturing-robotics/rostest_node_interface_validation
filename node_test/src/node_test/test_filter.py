@@ -11,7 +11,7 @@ Example of test file using this component:
         <rosparam>
             filters:
                 - topic_in: topic to which the filter node is subscribed to
-                  topic_out: topic to which the filter node will pubish filter output
+                  topic_out: topic to which the filter node will publish filter output
                   msg_in: message to publish on topic_in, in python dictionary format
                   msg_out: message to be received on topic_out, in python dictionary format
                   timeout: limit time [s] for receiving the filter output
@@ -25,16 +25,14 @@ If the input or the output message should be empty, place None.
 __author__ = "Anthony Remazeilles"
 __email__ = "anthony.remazeilles@tecnalia.com"
 __copyright__ = "Copyright (C) 2020 Tecnalia Research and Innovation"
-__licence__ = "Apache 2.0"
+__license__ = "Apache 2.0"
 
 import sys
 import time
 import unittest
 import rospy
 import rostopic
-import rosmsg
 import rostest
-import genpy
 from rospy_message_converter import message_converter
 
 CLASSNAME = 'filterTest'
@@ -73,8 +71,8 @@ class FilterMsgTest(unittest.TestCase):
                 keys = ['topic_in', 'topic_out', 'msg_in', 'msg_out', 'timeout']
 
                 for item in keys:
-                    if item not in keys:
-                        self.fail("{} field required, but not specified in {}".format(item, call))
+                    if item not in one_filter:
+                        self.fail("{} field required, but not specified in {}".format(item, one_filter))
 
             if one_filter['topic_in'] == 'None':
                 rospy.logwarn('None input converted to empty input')
@@ -123,10 +121,10 @@ class FilterMsgTest(unittest.TestCase):
             ros_msg_in = message_converter.convert_dictionary_to_ros_message(msg_in_type, msg_in)
             rospy.loginfo("Generated message: [%s]" % (ros_msg_in))
         except ValueError as err:
-            msg_err = "Prb in message in contruction \n"
+            msg_err = "Prb in message in construction \n"
             msg_err += "Expected type: [%s]\n" % (msg_in_type)
             msg_err += "dictionary: [%s]\n" % (msg_in)
-            msg_err += "Erorr: [%s]\n" % (str(err))
+            msg_err += "Error: [%s]\n" % (str(err))
             self.fail(msg_err)
 
         # getting message to receive
@@ -139,10 +137,10 @@ class FilterMsgTest(unittest.TestCase):
             ros_msg_out = message_converter.convert_dictionary_to_ros_message(msg_out_type, msg_out)
             rospy.loginfo("Generated message: [%s]" % (ros_msg_out))
         except ValueError as err:
-            msg_err = "Prb in message in contruction \n"
+            msg_err = "Prb in message construction \n"
             msg_err += "Expected type: [%s]\n" % (msg_out_type)
             msg_err += "dictionary: [%s]\n" % (msg_out)
-            msg_err += "Erorr: [%s]\n" % (str(err))
+            msg_err += "Errorr: [%s]\n" % (str(err))
             self.fail(msg_err)
 
         # subscription
