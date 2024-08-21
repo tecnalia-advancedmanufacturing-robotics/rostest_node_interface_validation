@@ -14,20 +14,24 @@ from std_srvs.srv import Trigger, TriggerResponse
 def empty_cb(req):
     return EmptyResponse()
 
+
 def set_bool_cb(req):
     response = SetBoolResponse()
     response.success = True
     response.message = str(req.data)
     return response
 
+
 def trigger_cb(req):
     return TriggerResponse()
+
 
 def trigger2_cb(req):
     response = TriggerResponse()
     response.success = True
     response.message = 'well done!'
     return response
+
 
 def main():
     rospy.init_node('service_server')

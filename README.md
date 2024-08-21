@@ -1,10 +1,10 @@
-[![license - apache 2.0](https://img.shields.io/:license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 # node_test
+
+[![license - apache 2.0](https://img.shields.io/:license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The package `node_test` extends `rostest` to add more testing functionalities at node level.
 
-**Author & Maintainer**: [Anthony Remazeilles](https://github.com/aremazeilles), anthony.remazeilles@tecnalia.com
+**Author & Maintainer**: [Anthony Remazeilles](https://github.com/aremazeilles), <mailto:anthony.remazeilles@tecnalia.com>
 
 **Affiliation** : Tecnalia Research and Innovation, Spain
 
@@ -17,6 +17,7 @@ See [LICENSE.md](LICENSE.md) for more details.
 
 We assume [`ROS`][ros] is installed on the machine.
 Code developed and tested so far under `ROS kinetic`.
+Currently working under `ROS noetic`
 
 [ros]: http://www.ros.org/
 
@@ -92,7 +93,6 @@ rostest node_test example_srv.test
 ```
 
 ### test_filter
-
 
 `test_filter` enables testing a filter-like node, that is supposed to publish a message after having processed a received message.
 
